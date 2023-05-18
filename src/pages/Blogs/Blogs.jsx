@@ -30,7 +30,7 @@ Split an array field into multiple documents.
 
 By chaining these stages, developers can perform complex operations such as filtering, grouping, sorting, joining, and transforming data directly within the database.
 
-Aggregate functions provide a flexible and efficient way to process large amounts of data and perform sophisticated calculations without requiring additional client-side processing. Leverage MongoDB's document model and indexing capabilities to optimize performance.</p>
+Aggregate functions provide a flexible and efficient way to process large amounts of data and perform sophisticated calculations without requiring additional client-side processing. Leverage MongoDB's document model and indexing capabilities to optimize performance.</p><br />
         </div>
     );
 };

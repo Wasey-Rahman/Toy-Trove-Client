@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import app from '../../Firebase/firebase.config';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +11,8 @@ const LogIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const {signIn} = useContext(AuthContext);
   const navigate=useNavigate();
+  const auth=getAuth(app);
+  const provider =new GoogleAuthProvider();
 
 
 
@@ -40,8 +44,15 @@ const LogIn = () => {
   };
 
   const handleGoogleSignIn = () => {
-    // Implement Google Sign-in logic here
-    // This function will be triggered when the user clicks on the Google Sign-in button
+    signInWithPopup(auth,provider)
+    .then(result=>{
+      const user=result.user;
+      console.log(user);
+      navigate('/')
+    })
+    .catch(error=>{
+      console.log('error',error.message)
+    })
   };
 
   return (

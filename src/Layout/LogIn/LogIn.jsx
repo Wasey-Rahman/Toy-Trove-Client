@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const {signIn} = useContext(AuthContext);
+  const navigate=useNavigate();
+
+
 
   const handleLogin = () => {
+   
     // Implement login logic here
     // Validate email and password
     if (email === '') {
@@ -17,6 +24,19 @@ const LogIn = () => {
       // Perform login action
       // ...
     }
+    console.log(name,email,password)
+
+    signIn(email,password)
+    .then(result=>{
+      const user=result.user;
+      console.log(user);
+      navigate('/')
+
+      
+    })
+   
+    
+    .catch(error=>console.log(error))
   };
 
   const handleGoogleSignIn = () => {

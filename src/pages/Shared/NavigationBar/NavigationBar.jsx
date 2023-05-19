@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './Toy-Trove.png';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 const NavigationBar = () => {
-
+  const { user, logOut } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Added state for dropdown visibility
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Sample login state and user data
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true); // Update this based on your login logic
-  const username = 'John Doe';
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, clear user session, update login state, etc.
-    setIsLoggedIn(false);
-  };
 
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <div className="dropdown">
+      <div className="dropdown">
         <label tabIndex={0} className="btn btn-ghost lg:hidden" onClick={toggleDropdown}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
@@ -45,21 +38,21 @@ const NavigationBar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-        <li><Link to="/"><span>Home</span></Link></li>
+          <li><Link to="/"><span>Home</span></Link></li>
           <li><Link to="/AllToys">All Toys</Link></li>
           <li><Link to="/Blogs">Blogs</Link></li>
         </ul>
       </div>
       <div className="navbar-end">
-        {isLoggedIn ? (
-          <div className="dropdown">
+        {user ? (
+          <div className="flex items-center">
             <div className="avatar">
-              <img src="user-profile-picture.jpg" alt="User Profile" />
+              <img src={user.photoURL || '/default-profile-image.jpg'} alt="User Profile" />
             </div>
-            <label tabIndex={0} className="btn btn-ghost">
-              {username}
+            <label tabIndex={0} className="btn btn-ghost mx-2">
+              {user.displayName}
             </label>
-            <ul tabIndex={0} className="menu dropdown-content shadow bg-base-100 rounded-box">
+            <ul className="menu dropdown-content shadow bg-base-100 rounded-box">
               <li>
                 <Link to="/add-toy">Add A Toy</Link>
               </li>
@@ -67,7 +60,7 @@ const NavigationBar = () => {
                 <Link to="/my-toys">My Toys</Link>
               </li>
               <li>
-                <button className="btn" onClick={handleLogout}>
+                <button className="btn" onClick={logOut}>
                   Logout
                 </button>
               </li>

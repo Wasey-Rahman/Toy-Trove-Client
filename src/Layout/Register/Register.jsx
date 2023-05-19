@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
+import { getAuth, updateProfile } from 'firebase/auth';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -7,6 +9,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [photoURL, setPhotoURL] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const {createUser}=useContext(AuthContext);
 
   const handleRegister = () => {
     // Implement registration logic here
@@ -23,6 +27,32 @@ const Register = () => {
       // Perform registration action
       // ...
     }
+    console.log(name,email,password)
+    
+
+    createUser(email,password)
+    .then(result=>{
+      const user=result.user;
+      console.log(user)
+   
+      if (name && photoURL) {
+        const auth = getAuth();
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photoURL,
+        })
+          .then(() => {
+            console.log('Profile updated!');
+            // ... Perform additional actions after updating the profile
+          })
+          .catch((error) => {
+            console.log('An error occurred while updating the profile:', error);
+            // ... Handle the error
+          });
+      }
+    
+    })
+    .catch(error=>console.log(error))
   };
 
   return (
@@ -71,7 +101,7 @@ const Register = () => {
                 <span className="label-text">Photo URL</span>
               </label>
               <input
-                type="text"
+                type="url"
                 placeholder="photo URL"
                 className="input input-bordered"
                 value={photoURL}

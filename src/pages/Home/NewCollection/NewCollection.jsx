@@ -4,7 +4,7 @@ const NewCollection = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="mt-20 text-center font-bold text-4xl text-blue-600">Toy New Collection</h1>
-      <div className="mockup-phone mt-8">
+      <div className="mockup-phone mt-8 mb-20">
         <div className="camera"></div>
         <div className="display">
           <div className="artboard artboard-demo phone-1 text-center">

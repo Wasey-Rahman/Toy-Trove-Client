@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
@@ -13,6 +13,10 @@ const LogIn = () => {
   const navigate=useNavigate();
   const auth=getAuth(app);
   const provider =new GoogleAuthProvider();
+  const location =useLocation();
+  console.log('login page came',location)
+  const from=location.state?.from?.pathname ||'/'
+
 
 
 
@@ -34,7 +38,7 @@ const LogIn = () => {
     .then(result=>{
       const user=result.user;
       console.log(user);
-      navigate('/')
+      navigate(from,{replace:true})
 
       
     })

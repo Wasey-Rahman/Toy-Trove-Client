@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const AllToys = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -6,7 +7,7 @@ const AllToys = () => {
 
   useEffect(() => {
     // Fetch toy data from API and update the state
-    fetch('http://localhost:5000/all_toys')
+    fetch('http://localhost:5000/toy')
       .then((response) => response.json())
       .then((data) => setToys(data))
       .catch((error) => console.error(error));
@@ -58,9 +59,12 @@ const AllToys = () => {
               <td className="border px-4 py-2">${toy.Price}</td>
               <td className="border px-4 py-2">{toy.AvailableQuantity}</td>
               <td className="border px-4 py-2">
+                <Link to={`/toy/${toy._id}`}>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded">
                   View Details
                 </button>
+                </Link>
+                
               </td>
             </tr>
           ))}

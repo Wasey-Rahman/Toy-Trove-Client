@@ -5,6 +5,7 @@ import LogIn from "../Layout/LogIn/LogIn";
 import Register from "../Layout/Register/Register";
 import Blogs from "../pages/Blogs/Blogs";
 import AllToys from "../pages/Home/AllToys/AllToys";
+import Not_Found from "../404_page/Not_Found";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         }
       ]
     },
+    {
+      path:'*',
+      element:<Not_Found></Not_Found>
+    }
   ]);
   
   export default router;

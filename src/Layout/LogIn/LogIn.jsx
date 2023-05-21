@@ -52,7 +52,7 @@ const LogIn = () => {
     .then(result=>{
       const user=result.user;
       console.log(user);
-      navigate('/')
+      navigate(from,{replace:true})
     })
     .catch(error=>{
       console.log('error',error.message)

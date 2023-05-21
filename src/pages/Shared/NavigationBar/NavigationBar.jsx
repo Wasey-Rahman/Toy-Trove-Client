@@ -54,7 +54,7 @@ const NavigationBar = () => {
             </label>
             <ul className="menu dropdown-content shadow bg-base-100 rounded-box">
               <li>
-                <Link to="/add-toy">Add A Toy</Link>
+                <Link to="/Add_A_toy">Add A Toy</Link>
               </li>
               <li>
                 <Link to="/my-toys">My Toys</Link>

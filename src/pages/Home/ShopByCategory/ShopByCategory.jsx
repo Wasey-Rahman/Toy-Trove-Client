@@ -4,17 +4,12 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 
-// 
-// Picture,
-// Name,
-// Price,
-// Rating and
-// View Details button.
+
 
 
 const ShopByCategory = () => {  
-     
- 
+  
+
   return (
    <div>
     
@@ -73,7 +68,7 @@ const ShopByCategory = () => {
     </TabPanel>
     
   </Tabs>
-   </div>
+  </div>
   );
 };
 

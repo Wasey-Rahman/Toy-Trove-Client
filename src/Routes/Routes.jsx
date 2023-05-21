@@ -9,6 +9,7 @@ import Not_Found from "../404_page/Not_Found";
 import Toys_Details from "../pages/Toys_Details/Toys_Details";
 import PrivateRoute from "./PrivateRoute";
 import Add_A_Toy from "../pages/Add_A_Toy/Add_A_Toy";
+import Single_Toy_Details from "../pages/Single_Toy_Details/Single_Toy_Details";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
         {
           path:"Add_A_toy",
           element:<PrivateRoute><Add_A_Toy></Add_A_Toy></PrivateRoute>
+        },
+        {
+          path:"/single toy details",
+          element:<PrivateRoute><Single_Toy_Details></Single_Toy_Details></PrivateRoute>,
+          
         }
       ]
     },

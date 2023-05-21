@@ -28,13 +28,15 @@ const NavigationBar = () => {
       case '/AllToys':
         return 'All Toys';
       case '/Blogs':
-        return 'Blogs';
-        case '/Add_A_toy':
-        return 'Add A Toy';
-        case '/my-toys':
-        return 'My Toys';
+      return 'Blogs';
+      case '/Add_A_toy':
+      return 'Add A Toy';
+      case '/my-toys':
+      return 'My Toys';
+      case '/single toy details':
+      return 'Single Toy Details';
       default:
-        return '';
+      return '';
     }
   };
  return (

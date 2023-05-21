@@ -1,18 +1,43 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logo from './Toy-Trove.png';
 import { AuthContext } from '../../../Providers/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 const NavigationBar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Added state for dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);// Added state for dropdown visibility
+  const location = useLocation();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  
 
-  return (
+  useEffect(() => {
+    // Scroll to the top of the page on route change
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  // Get the page name from the current route path
+  const getPageName = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Home';
+      case '/AllToys':
+        return 'All Toys';
+      case '/Blogs':
+        return 'Blogs';
+        case '/Add_A_toy':
+        return 'Add A Toy';
+        case '/my-toys':
+        return 'My Toys';
+      default:
+        return '';
+    }
+  };
+ return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
       <div className="dropdown">
@@ -38,7 +63,7 @@ const NavigationBar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li><Link to="/"><span>Home</span></Link></li>
+          <li><Link to="/" ><span>Home</span></Link></li>
           <li><Link to="/AllToys">All Toys</Link></li>
           <li><Link to="/Blogs">Blogs</Link></li>
         </ul>
@@ -46,8 +71,8 @@ const NavigationBar = () => {
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center">
-            <div className="avatar">
-              <img src={user.photoURL || '/default-profile-image.jpg'} alt="User Profile" />
+            <div className="avatar w-16 me-4">
+              <img src={user.photoURL || '/default-profile-image.jpg'} alt="User Profile"   />
             </div>
             <label tabIndex={0} className="btn btn-ghost mx-2">
               {user.displayName}
@@ -72,8 +97,12 @@ const NavigationBar = () => {
           </Link>
         )}
       </div>
+      <Helmet>
+      <title>Toy-Trove | {getPageName()}</title>
+        </Helmet>
     </div>
   );
 };
+
 
 export default NavigationBar;

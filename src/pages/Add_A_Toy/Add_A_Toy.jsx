@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
+import Swal from 'sweetalert2';
+
+
 
 const Add_A_Toy = () => {
   const { user } = useContext(AuthContext);
@@ -16,6 +19,7 @@ const Add_A_Toy = () => {
     const rating = form.rating.value;
     const availableQuantity = form.availableQuantity.value;
     const description = form.description.value;
+    
 
     const Add={
     
@@ -28,6 +32,35 @@ const Add_A_Toy = () => {
     form.reset();
     
    console.log(Add)
+
+   fetch('http://localhost:5000/Add_A_Toy',{
+     method:'POST',
+     headers:{
+          'content-type':'application/json'
+     },
+     body:JSON.stringify(Add)
+   })
+   .then(res=>res.json())
+   .then(data=>{
+    console.log(data);
+    if(data.insertId){
+      Swal.fire({
+        title:'Success',
+        text:' Added Successfully',
+        icon:'success',
+        confirmation:'cool'
+      })
+      
+    }
+   })
+   .catch((error) => {
+    console.error('Error:', error);
+  });
+   
+
+   
+  
+
   };
 
   return (

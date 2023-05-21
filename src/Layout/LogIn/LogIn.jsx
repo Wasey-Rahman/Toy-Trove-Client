@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup, updateProfile } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const {signIn} = useContext(AuthContext);
+  const {signIn,user} = useContext(AuthContext);
   const navigate=useNavigate();
   const auth=getAuth(app);
   const provider =new GoogleAuthProvider();
@@ -38,6 +38,22 @@ const LogIn = () => {
     .then(result=>{
       const user=result.user;
       console.log(user);
+
+      const auth = getAuth();
+    updateProfile(auth.currentUser, {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    })
+      .then(() => {
+        console.log('Profile updated!');
+        // ... Perform additional actions after updating the profile
+      })
+      .catch((error) => {
+        console.log('An error occurred while updating the profile:', error);
+        // ... Handle the error
+      });
+
+
       navigate(from,{replace:true})
 
       
@@ -107,6 +123,7 @@ const LogIn = () => {
                 </Link>
               </p>
             </div>
+            
           </div>
         </div>
       </div>

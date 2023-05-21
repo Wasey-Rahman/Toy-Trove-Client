@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { getAuth, updateProfile } from 'firebase/auth';
+import {  getAuth, updateProfile } from 'firebase/auth';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -10,7 +10,7 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const {createUser}=useContext(AuthContext);
+  const { createUser,user } = useContext(AuthContext);
 
   const handleRegister = () => {
     // Implement registration logic here
@@ -26,33 +26,29 @@ const Register = () => {
     } else {
       // Perform registration action
       // ...
-    }
-    console.log(name,email,password)
-    
-
-    createUser(email,password)
-    .then(result=>{
-      const user=result.user;
-      console.log(user)
-   
-      if (name && photoURL) {
-        const auth = getAuth();
-        updateProfile(auth.currentUser, {
-          displayName: name,
-          photoURL: photoURL,
+      createUser(email, password, photoURL)
+        .then(() => {
+          if (name && photoURL) {
+            const auth = getAuth();
+            updateProfile(auth.currentUser, {
+              displayName: name,
+              photoURL: photoURL,
+            })
+              .then(() => {
+                console.log('Profile updated!');
+                // ... Perform additional actions after updating the profile
+              })
+              .catch((error) => {
+                console.log('An error occurred while updating the profile:', error);
+                // ... Handle the error
+              });
+          }
         })
-          .then(() => {
-            console.log('Profile updated!');
-            // ... Perform additional actions after updating the profile
-          })
-          .catch((error) => {
-            console.log('An error occurred while updating the profile:', error);
-            // ... Handle the error
-          });
-      }
-    
-    })
-    .catch(error=>console.log(error))
+        .catch((error) => {
+          console.log('An error occurred while creating the user:', error);
+          // ... Handle the error
+        });
+    }
   };
 
   return (
@@ -104,29 +100,28 @@ const Register = () => {
                 type="url"
                 placeholder="photo URL"
                 className="input input-bordered"
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
-              />
-            </div>
-            {errorMessage && <p className="text-error mt-2">{errorMessage}</p>}
-            <div className="form-control mt-6">
-              <button className="btn btn-primary" onClick={handleRegister}>
-                Register
-              </button>
-            </div>
-            <div className="form-control mt-4">
-              <p>
-                Already have an account?{' '}
-                <Link to="/login" className="text-primary">
-                  Log In
-                </Link>
-              </p>
+                value={photoURL} onChange={(e) => setPhotoURL(e.target.value)}
+                />
+              </div>
+              {errorMessage && <p className="text-error mt-2">{errorMessage}</p>}
+              <div className="form-control mt-6">
+                <button className="btn btn-primary" onClick={handleRegister}>
+                  Register
+                </button>
+              </div>
+              <div className="form-control mt-4">
+                <p>
+                  Already have an account?{' '}
+                  <Link to="/login" className="text-primary">
+                    Log In
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default Register;
+    );
+  };
+  
+  export default Register;

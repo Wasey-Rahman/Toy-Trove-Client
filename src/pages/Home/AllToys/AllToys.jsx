@@ -7,7 +7,7 @@ const AllToys = () => {
 
   useEffect(() => {
     // Fetch toy data from API and update the state
-    fetch('http://localhost:5000/toy')
+    fetch('https://toy-trove-server-nu.vercel.app/toy')
       .then((response) => response.json())
       .then((data) => setToys(data))
       .catch((error) => console.error(error));

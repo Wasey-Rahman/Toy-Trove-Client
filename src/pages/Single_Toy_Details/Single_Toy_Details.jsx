@@ -32,7 +32,7 @@ const Single_Toy_Details = () => {
   useEffect(() => {
     const fetchToyDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/Toy_S/${params._id}`);
+        const response = await fetch(`https://toy-trove-server-nu.vercel.app/Toy_S/${params._id}`);
         const data = await response.json();
         setToyDetails(data);
       } catch (error) {

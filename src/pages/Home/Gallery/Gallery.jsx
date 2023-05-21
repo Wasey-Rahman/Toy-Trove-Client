@@ -4,7 +4,7 @@ const Gallery = () => {
     const [gallerys,setGallery]=useState([]);
 
     useEffect(()=>{
-       fetch('http://localhost:5000/gallery')
+       fetch('https://toy-trove-server-nu.vercel.app/gallery')
        .then(res=>res.json())
        .then(data=>setGallery(data))
        .catch(error=>console.log(error))

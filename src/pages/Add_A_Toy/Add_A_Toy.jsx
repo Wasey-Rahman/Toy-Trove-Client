@@ -33,7 +33,7 @@ const Add_A_Toy = () => {
     
    console.log(Add)
 
-   fetch('http://localhost:5000/Add_A_Toy',{
+   fetch('https://toy-trove-server-nu.vercel.app/Add_A_Toy',{
      method:'POST',
      headers:{
           'content-type':'application/json'
